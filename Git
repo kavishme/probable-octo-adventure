@@ -1,0 +1,10 @@
+git init
+git add
+git commit
+git help
+git help [option]
+git push
+git pull
+git clone
+git merge
+git status
