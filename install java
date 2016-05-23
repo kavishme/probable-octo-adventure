@@ -1,0 +1,49 @@
+sudo update-alternatives --set java /opt/java/current-java/bin/java
+sudo update-alternatives --set javac /opt/java/current-java/bin/javac
+sudo update-alternatives --set javaws /opt/java/current-java/bin/javaws
+
+Remove OpenJDK completely by this command:
+sudo apt-get purge openjdk-\*
+Download the Oracle Java JDK here.
+
+Note: download appropriate file, for example if your system is x64 Ubuntu (i.e, Debian) the download file is named like this: jdk-8u51-linux-x64.tar.gz
+
+To find which version is your OS, check here
+Create a folder named java in /usr/local/by this command:
+sudo mkdir -p /usr/local/java
+Copy the Downloaded file in the directory /usr/local/java. To do this, cd into directory where downloaded file is located and use this command for copying that file to /usr/local/java/:
+sudo cp -r jdk-8u51-linux-x64.tar.gz /usr/local/java/
+CD into /usr/local/java/ directory and extract that copied file by using this command:
+sudo tar xvzf jdk-8u51-linux-x64.tar.gz
+After extraction you must see a folder named jdk1.8.0_51.
+Update PATH file by opening  /etc/profile file by the command sudo nano /etc/profile and paste the following at the end of the file:
+JAVA_HOME=/usr/local/java/jdk1.8.0_51
+PATH=$PATH:$HOME/bin:$JAVA_HOME/bin
+export JAVA_HOME
+export PATH
+Save and exit.
+Tell the system that the new Oracle Java version is available by the following commands:
+sudo update-alternatives --install "/usr/bin/java" "java" "/usr/local/java/jdk1.8.0_51/bin/java" 1
+sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/local/java/jdk1.8.0_51/bin/javac" 1
+sudo update-alternatives --install "/usr/bin/javaws" "javaws" "/usr/local/java/jdk1.8.0_51/bin/javaws" 1
+
+Make Oracle Java JDK as default by this following commands:
+sudo update-alternatives --set java /opt/java/current-java/bin/java
+sudo update-alternatives --set javac /opt/java/current-java/bin/javac
+sudo update-alternatives --set javaws /opt/java/current-java/bin/javaws
+
+Reload sytem wide PATH /etc/profile by this command:
+source /etc/profile
+Reboot your system.
+Check Java JDK version by java -version command . If installation is succesful, it will display like the following:
+java version "1.8.0_51"
+Java(TM) SE Runtime Environment (build 1.8.0_51-xxx)
+Java HotSpot(TM) Server VM (build 25.51-xxx, mixed mode)
+That's it!
+
+
+
+export JAVA_HOME=/opt/java/current-java/bin/java
+export PATH=$PATH:/opt/java/current-java/bin
+export JDK_HOME=/opt/java/current-java
+export JRE_HOME=/opt/java/current-java/jre

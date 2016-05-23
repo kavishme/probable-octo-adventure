@@ -1,0 +1,17 @@
+sudo apt-get purge pulseaudio-module-bluetooth bluetooth bluez-* bluez
+
+sudo apt-get install blueman bluez pulseaudio-module-bluetooth --install-suggests
+pactl load-module module-bluetooth-discover
+
+
+su
+nano /etc/bluetooth/audio.conf
+
+
+add the following underneath [General]
+
+Disable=Socket
+Enable=Media,Source,Sink,Gateway
+Save & exit
+
+service bluetooth restart

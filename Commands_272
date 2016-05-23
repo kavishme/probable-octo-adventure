@@ -1,0 +1,30 @@
+Login ID:          cmpe281_2016
+Password:          cmpe281_cloud_2016
+Access Key ID:     AKIAJOYBBE7HX3YO37YQ
+Secret Access Key: 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
+
+https://060340690398.signin.aws.amazon.com/console
+
+ssh -i Downloads/team3.pem ec2-user@52.91.84.172
+
+ssh -i Downloads/team3.pem ec2-user@52.203.82.70
+scp -i team3.pem neo4j-community-3.0.1-unix.tar.gz  ec2-user@52.203.82.70:
+
+sudo yum install java-1.8.0
+sudo yum remove java-1.7.0-openjdk
+
+http://52.203.82.70:7474/browser/
+username:neo4j
+password:root
+
+curl -X POST -d "{ \"field\": \"value\" }" --dump - http://localhost:8529/_db/myDatabase/_api/document?collection=cars
+
+CREATE ("double standard":seed {crop:'corn', details:'The first bicolor open-pollinated sweet corn'});
+CREATE (Xtra_Tender_2171:seed {crop:'corn', details:'Early super sweet (sh2) with good cool soil germination'});
+CREATE (Xtra_Tender_20173:seed {crop:'corn', details:'Now available treated! Bicolor super sweet with great flavor'});
+
+CREATE (nitrogen:fertilizer),(phosphate:fertilizer),(potash:fertilizer),(sulphur:fertilizer);
+
+CREATE (oxamyl:insecticide), (dimethoate:insecticide),(malathion:insecticide),(endosulfan:insecticide);
+
+CREATE (flumioxazin:herbicide), (fluometuron:herbicide),(propazine:herbicide),(glyphosate:herbicide);

@@ -1,0 +1,110 @@
+A)Configured Mongo three node replica Set using the amazon EC2 instance (Large)
+
+Steps to configure:
+
+1)Pull up a large instance of the the EC2 AMI in a VPC.
+2)Configure the security group to use ports 22,27017 & 80.
+3)Create a package using :
+sudo vi /etc/yum.repos.d/mongodb-org-2.6.repo
+
+4)Add this to use the yum install:
+[mongodb-org-2.6]
+name=MongoDB 2.6 Repository
+baseurl=http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/
+gpgcheck=0
+enabled=1
+
+5)Now install the mongodb and its associated tools by using the command: sudo yum install -y mongodb-org
+
+6)Inorder to exclude the yum to update it automatically include thi line in
+sudo vi /etc/yum.conf
+exclude=mongodb-org,mongodb-org-server,mongodb-org-shell,mongodb-org-mongos,mongodb-org-tools
+
+7)Now in the configuration file of mongo which is at
+
+sudo vi /etc/mongod.conf
+
+edit and use replSet=kjCluster
+    comment bind_ip line
+    uncomment port
+
+mongo --replSet "kjCluster"
+
+
+sudo service mongod status
+
+8)Now use rs.initiate() to insitiate the replica set.
+9)Repeat the same procedure for the other two nodes also excluding the step 8.
+10)Now use rs.add(<internal_ip>) to add the other two nodes to the replica set.
+11)Once added use rs.status() to show the status of the nodes. The output of the status is attached with this file named status.jpg
+12)Now the mongo cluster is configured and is working.
+
+Install Node.js and NPM on your Amazon EC2 instance
+At last, it’s time to install Node.js on your Amazon Linux! We are going to install some required packages to compile Node and get Node from its Github repo
+
+sudo yum install gcc-c++ make
+sudo yum install openssl-devel
+git clone https://github.com/nodejs/node
+cd node
+
+Now you need to decide which version of Node you want to install. If you are going to use a framework like Express 3.x, you need Node v0.6.x. Just modify the first command line to suit your needs. You can view all available Node tags (versions) by typing git tag -l. The make command will take a while to complete (30+ minutes), so go make a coffee and come back later.
+
+
+git checkout v4.4.4
+./configure
+make
+sudo make install
+
+Alright, Node is now installed! Let’s add it to sudo’s path so that we can install more packages. You will need to use the VI editor to edit the /etc/sudoers file. Type the following:
+
+sudo su
+vi /etc/sudoers
+
+If you’re not familiar with VI, do the following:
+<Use the down keyboard arrow to find this line:>
+Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin
+
+<Use the right arrow to move the cursor to the end of the line and press the INSERT button. Now type>
+:/usr/local/bin
+
+<In order to save your changes and exit VI, hit ESC and type>
+:
+
+<now type>
+wq!
+
+<and you're back in the console>
+<in order to leave su mode, type:>
+exit
+
+git clone https://github.com/isaacs/npm.git
+cd npm
+sudo make install
+
+
+*********************************************************************
+
+ssh -i ~/Downloads/kj_ec2_1.pem ec2-user@52.26.59.208
+
+ssh -i ~/Downloads/kj_ec2_1.pem ec2-user@52.40.19.54
+
+ssh -i ~/Downloads/kj_ec2_1.pem ec2-user@52.38.62.95
+
+***********************************************************************
+remove mongo
+
+sudo rpm -qa | less | grep mongo | xargs yum remove -y
+----------------------------------------------------------------
+
+sudo yum install -y java-1.8.0
+sudo yum remove -y java-1.7.0-openjdk
+
+wget https://github.com/SoftInstigate/restheart/releases/download/2.0.0/restheart-2.0.0.tar.gz
+tar -xvf restheart-2.0.0.tar.gz
+java -server -jar restheart.jar
+
+-------------------------------------------------------
+heroku
+
+heroku create
+git push heroku master
